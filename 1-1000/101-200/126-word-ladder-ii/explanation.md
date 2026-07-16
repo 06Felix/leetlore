@@ -1,26 +1,24 @@
-# Word Ladder II
+# Explanation
 
 ## Idea
 
-- The C++ solution first runs BFS from `beginWord` and stores the shortest distance to each reached word in `mp`.
-- Each BFS step tries changing every character to `'a'..'z'`.
-- Once distances are known, DFS starts from `endWord` and walks backward to words with distance exactly one less.
-- Each reversed sequence is flipped before being added to the answer.
+- Use BFS from `beginWord` to assign each reachable word its shortest distance.
+- Generate neighbors by changing one character to each letter `a` through `z`.
+- If `endWord` is reached, DFS backward from `endWord` to `beginWord`, only following words whose distance is exactly one less.
 
 ## Why It Works
 
-- BFS discovers words in increasing number of transformations, so `mp[word]` is the shortest distance from the start.
-- Backward DFS only follows edges that decrease the distance by one, so every produced path is shortest.
-- Trying all one-letter mutations during DFS enumerates all valid predecessor words on shortest paths.
-- If `endWord` was never reached by BFS, there are no valid shortest sequences.
+- BFS records the first distance at which each word is discovered, so `mp[word]` is the shortest number of steps from `beginWord`.
+- A valid shortest path ending at `word` must come from a neighbor with distance `mp[word] - 1`.
+- The backward DFS enumerates all such predecessor choices and reverses each completed sequence before storing it.
 
 ## Edge Cases
 
-- If `endWord` is absent or unreachable, the result stays empty.
-- Multiple shortest parents are all explored by the backward DFS.
-- The word length is small, so generating all one-letter mutations is practical.
+- If `endWord` is not reached by BFS, the result stays empty.
+- Removing words from `not_checked` prevents longer revisits from polluting shortest distances.
+- `beginWord` is explicitly erased from the unchecked set to avoid cycling back to it during BFS.
 
 ## Complexity
 
-- Time: $O(N \cdot L \cdot 26 + P \cdot L \cdot 26)$, where `N` is dictionary size, `L` is word length, and `P` is the number of words visited across generated shortest paths.
-- Space: $O(N + R \cdot L)$ for distances and returned paths.
+- Time: $O(W \cdot L \cdot 26 + P \cdot L \cdot 26)$, where $W$ is word count, $L$ is word length, and $P$ is the number of words visited across generated output paths.
+- Space: $O(W + R \cdot L)$ for distances, BFS storage, recursion, and returned paths.

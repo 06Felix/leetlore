@@ -1,26 +1,25 @@
-# Path Sum II
+# Explanation
 
 ## Idea
 
-- The solution runs DFS from the root while carrying the remaining target sum.
-- `path` stores the values on the current root-to-node path.
-- At each node, it subtracts the node value before recursing into children.
-- When a leaf exactly matches the remaining sum, a copy of `path` is added to the answer.
+- Run DFS from the root while carrying the remaining target sum.
+- Keep one mutable `path` list for the current root-to-node path.
+- When a leaf value equals the remaining sum, copy the current path into the answer.
 
 ## Why It Works
 
-- Every root-to-leaf path is visited once by DFS.
-- The remaining sum represents the original target minus all earlier path values.
-- A path is valid only at a leaf, matching the problem's root-to-leaf requirement.
-- Backtracking removes the current node after both child searches, restoring `path` for sibling branches.
+- Subtracting each visited node value turns the check at a leaf into `root.val == sum`.
+- DFS explores every root-to-leaf path exactly once.
+- The implementation backtracks by removing the last value after each subtree, so sibling paths do not share stale values.
+- Copying `path` before storing it protects accepted answers from later backtracking changes.
 
 ## Edge Cases
 
-- A null root returns an empty answer.
-- Negative node values work because the code does not prune by sum.
-- The path is copied before storage so later backtracking does not mutate saved answers.
+- A `null` root returns an empty result.
+- Negative values are handled naturally because the remaining sum is arithmetic, not monotonic pruning.
+- Only leaves are accepted, so partial paths with the target sum are ignored.
 
 ## Complexity
 
-- Time: $O(n \cdot h)$ in the worst case due to copying valid paths, with traversal over all `n` nodes.
-- Space: $O(h)$ recursion/path space, plus the output.
+- Time: $O(nh)$ in the worst case because each accepted path copy can take up to tree height $h$.
+- Space: $O(h)$ recursion/path space, plus output storage.

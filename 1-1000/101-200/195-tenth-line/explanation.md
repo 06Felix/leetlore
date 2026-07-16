@@ -1,26 +1,23 @@
-# Tenth Line
+# Explanation
 
 ## Idea
 
-- The script reads `file.txt` line by line with `read`.
-- It tracks the current line number in `count`.
-- When `count == 10`, it prints the current line and stops.
-- Otherwise it increments the counter and continues.
+- Read `file.txt` line by line with a shell `while read` loop.
+- Keep a 1-based `count` for the current line.
+- When `count` reaches 10, print that line and stop reading.
 
 ## Why It Works
 
-- Reading sequentially preserves the file's line order.
-- The counter starts at `1`, so the tenth successful read corresponds to line 10.
-- Breaking after printing avoids reading unnecessary later lines.
-- If the loop ends before `count` reaches 10, nothing is printed.
+- The loop visits lines in file order, so the first line seen with `count == 10` is exactly the tenth line.
+- Breaking immediately after printing avoids any dependence on later file contents.
+- If the file has fewer than ten lines, the condition is never reached and nothing is printed.
 
 ## Edge Cases
 
-- Files with fewer than 10 lines produce no output.
-- A file with exactly 10 lines prints the last line.
-- `IFS= read -r` preserves leading spaces and backslashes while reading.
+- Files with fewer than ten lines produce no output.
+- `IFS= read -r` preserves leading/trailing whitespace and backslashes while reading.
 
 ## Complexity
 
-- Time: $O(\min(n, 10))$ lines read.
-- Space: $O(1)$.
+- Time: $O(\min(n, 10))$ lines read before stopping.
+- Space: $O(1)$ extra space.

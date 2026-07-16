@@ -1,26 +1,24 @@
-# Populating Next Right Pointers in Each Node
+# Explanation
 
 ## Idea
 
-- The solution uses DFS on the perfect binary tree.
-- For each node, it connects `root.left.next` to `root.right`.
-- If the current node already has a `next`, it connects `root.right.next` to `root.next.left`.
-- It then recurses into the left and right subtrees.
+- Traverse the perfect binary tree recursively.
+- For each node, connect its left child to its right child.
+- If the node already has a `next`, connect its right child to the next node's left child.
 
 ## Why It Works
 
-- In a perfect binary tree, a node's left child is always immediately followed by its right child.
-- A node's right child is followed by the left child of the node's next neighbor, when such a neighbor exists.
-- Processing a node before its children provides the cross-parent links needed by lower levels.
-- Null checks handle the empty tree and leaf children.
+- In a perfect binary tree, a node's two children are adjacent on the next level.
+- The next node's left child is exactly the neighbor after the current node's right child.
+- Recursing after setting these links propagates the same rule to every lower level.
 
 ## Edge Cases
 
-- An empty root returns `null`.
-- Leaf nodes have no children and therefore create no links.
-- The rightmost node on each level has no `next`, so its right child's `next` remains `null`.
+- An empty tree returns `null`.
+- Leaf nodes have no children, so the link-setting checks skip them.
+- The cross-parent link only exists when `root.next` is non-null.
 
 ## Complexity
 
-- Time: $O(n)$.
-- Space: $O(h)$ recursion stack.
+- Time: $O(n)$ because each node is visited once.
+- Space: $O(h)$ recursion stack, where $h$ is the tree height.

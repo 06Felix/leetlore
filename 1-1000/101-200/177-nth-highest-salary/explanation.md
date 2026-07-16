@@ -1,26 +1,24 @@
-# Nth Highest Salary
+# Explanation
 
 ## Idea
 
-- The SQL function ranks employees by salary descending with `DENSE_RANK`.
-- Equal salaries receive the same rank, so ranks are based on distinct salary values.
-- The outer query selects salaries whose rank equals `N`.
-- `MAX(salary)` returns that distinct salary, or `NULL` when no row has the requested rank.
+- Define the required SQL function `getNthHighestSalary`.
+- Use `DENSE_RANK()` over salaries ordered descending to rank distinct salary values.
+- Return the maximum salary whose dense rank equals `N`.
 
 ## Why It Works
 
-- `DENSE_RANK()` advances only when the salary value changes.
-- Therefore rank `1` is the highest distinct salary, rank `2` is the second highest distinct salary, and so on.
-- Filtering by `rank = N` isolates the requested distinct salary group.
-- Aggregating with `MAX` returns a single scalar value required by the function.
+- `DENSE_RANK()` gives equal salaries the same rank and does not leave gaps, matching the requirement for distinct salaries.
+- Ordering by `salary DESC` makes rank `1` the highest salary, rank `2` the second highest, and so on.
+- Filtering on rank `N` selects exactly the requested distinct salary level.
+- `MAX(salary)` collapses all employees at that salary into one scalar return value.
 
 ## Edge Cases
 
-- Duplicate salaries do not consume extra ranks.
-- If there are fewer than `N` distinct salaries, the filtered set is empty and `MAX` returns `NULL`.
-- `N = 1` returns the highest salary.
+- If there are fewer than `N` distinct salaries, the filtered query returns no rows and `MAX` returns `NULL`.
+- Duplicate salaries do not shift the rank of lower distinct salaries.
 
 ## Complexity
 
-- Time: dominated by sorting/ranking the `Employee` salaries.
-- Space: depends on the database execution plan for the window function.
+- Time: dominated by ranking the `Employee` rows, typically $O(n \log n)$ because of the descending salary order.
+- Space: database-dependent working space for the window function.

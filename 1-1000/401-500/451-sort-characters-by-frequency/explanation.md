@@ -1,26 +1,23 @@
-# Sort Characters By Frequency
+# Explanation
 
 ## Idea
 
-- The implementation counts characters in an ASCII-sized array.
-- It places each present character into a bucket indexed by its frequency.
-- It scans buckets from highest frequency down to lowest.
-- For each character in a bucket, it appends that character `freq` times.
+- Count each ASCII character frequency in an array of size 128.
+- Bucket characters by their frequency, where `buckets[f]` stores all characters seen `f` times.
+- Walk frequencies from high to low and append each character repeated by its bucket index.
 
 ## Why It Works
 
-- Characters in higher-frequency buckets must appear earlier in the output.
-- Scanning frequencies descending guarantees the required ordering by frequency.
-- All occurrences of the same character are appended together.
+- Every character is placed into exactly the bucket matching its total frequency.
+- Iterating buckets from `n` down to `1` guarantees higher-frequency characters are appended first.
 - Ties can appear in any order, which the problem allows.
 
 ## Edge Cases
 
-- A one-character string returns itself.
-- Uppercase and lowercase letters are counted separately by character code.
-- Digits are handled by the same ASCII count array.
+- Single-character strings produce one non-empty bucket.
+- Uppercase, lowercase, and digits remain distinct because counting is by character code.
 
 ## Complexity
 
-- Time: $O(n + A)$, where `A = 128` for the count scan.
-- Space: $O(n + A)$ for buckets and the output builder.
+- Time: $O(n + A)$, where $A = 128$ for the counted character range.
+- Space: $O(n + A)$ for buckets, counts, and the output builder.
