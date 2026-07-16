@@ -1,28 +1,26 @@
-# Explanation
-
-Problem: [Subsets II](https://leetcode.com/problems/subsets-ii/)
+# Subsets II
 
 ## Idea
 
-- Sort `nums` so duplicate values are adjacent.
-- Run backtracking from a start index, adding the current path to the answer at every call.
-- At each depth, skip `nums[i]` when it equals the previous value and the previous value was not chosen at this same depth.
-- Choose a value, recurse to the next index, then remove it from the path.
+- The implementation sorts `nums` so duplicate values are adjacent.
+- DFS adds the current `path` to the answer at every call.
+- It then chooses each next element from index `s` onward.
+- If a duplicate value appears at the same recursion depth, it is skipped.
 
 ## Why It Works
 
-- Sorting groups equal values, making duplicate choices easy to detect locally.
-- Each recursive call represents one unique subset prefix and records it before adding more elements.
-- The duplicate skip prevents starting two branches at the same depth with the same value.
-- Recursing only to later indices preserves subset order and prevents reusing an element.
+- Every subset corresponds to choosing an increasing sequence of indices.
+- Adding `path` before recursing records subsets of every length.
+- Sorting makes equal values consecutive, so `i > s && nums[i] == nums[i - 1]` detects duplicate choices for the same position.
+- Skipping only same-depth duplicates still allows valid subsets containing multiple copies.
 
 ## Edge Cases
 
-- All values equal still produces only the subsets with `0..n` copies.
-- A one-element input produces the empty subset and the singleton subset.
-- Negative numbers need no special handling because sorting and equality checks still work.
+- A single-element array returns the empty subset and that one value.
+- All-equal arrays produce one subset for each possible count.
+- Negative values require no special handling after sorting.
 
 ## Complexity
 
-- Time: $O(n 2^n)$ including copying generated subsets.
-- Space: $O(n)$ recursion/path space, excluding the output.
+- Time: $O(n \cdot 2^n)$ for copying generated subsets.
+- Space: $O(n)$ recursion depth, plus the output.

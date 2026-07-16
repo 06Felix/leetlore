@@ -1,26 +1,25 @@
-# Explanation
-
-Problem: [First Unique Character in a String](https://leetcode.com/problems/first-unique-character-in-a-string/)
+# First Unique Character in a String
 
 ## Idea
 
-- Count occurrences of each lowercase letter in a fixed array of size 26.
-- Scan the string a second time from left to right.
-- Return the first index whose character count is exactly one.
+- The solution counts occurrences of each lowercase letter in a fixed array of size `26`.
+- It then scans the string from left to right.
+- The first index whose character count is `1` is returned.
+- If no such character exists, the answer is `-1`.
 
 ## Why It Works
 
-- The first pass records the total frequency of every possible character.
-- During the second pass, the first character with frequency one is the earliest non-repeating character by index order.
-- If no such character is found, every character repeats and the correct result is `-1`.
+- A character is unique exactly when its total count is one.
+- The second scan checks indices in increasing order, so the first unique character found is the required earliest one.
+- Since the alphabet is limited to lowercase English letters, direct indexing by `c - 'a'` is sufficient.
 
 ## Edge Cases
 
-- A string with all repeated characters returns `-1`.
-- A single-character string returns index `0`.
-- The fixed array is valid because the input contains only lowercase English letters.
+- Strings with all repeated characters return `-1`.
+- A one-character string returns index `0`.
+- Repeated characters before a later unique character are skipped by the count check.
 
 ## Complexity
 
 - Time: $O(n)$.
-- Space: $O(1)$.
+- Space: $O(1)$ because the count array has fixed size.

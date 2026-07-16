@@ -1,26 +1,24 @@
-# Explanation
-
-Problem: [Valid Number](https://leetcode.com/problems/valid-number/)
+# Valid Number
 
 ## Idea
 
-- Scan the string once while tracking whether a digit, decimal point, or exponent has been seen.
-- A decimal point is allowed only before any exponent and only once.
+- The solution scans the string once while tracking whether it has seen a digit, dot, or exponent.
+- A dot is allowed only before any dot or exponent.
 - An exponent is allowed only once and only after at least one digit.
 - A sign is allowed only at the start or immediately after `e`/`E`.
 
 ## Why It Works
 
-- `seenNum` confirms that the current numeric part contains at least one digit.
-- Seeing an exponent resets `seenNum`, forcing the exponent part to contain digits too.
-- `seenDot` and `seenE` reject invalid repeated or misplaced separators.
-- Any character outside digits, sign, dot, and exponent notation is rejected immediately.
+- These flags encode the grammar constraints for decimal and integer forms.
+- Resetting `seenNum` after an exponent forces digits to appear in the exponent part.
+- Invalid letters or misplaced symbols return `false` immediately.
+- At the end, `seenNum` confirms the final component contains at least one digit.
 
 ## Edge Cases
 
-- `"."`, `"+"`, and `"1e"` return false because they end without a required digit.
-- `".1"`, `"4."`, and signed exponent forms such as `"3e+7"` are accepted.
-- The code trims whitespace before validation, although the current problem constraints do not require surrounding spaces.
+- `"."`, `"e"`, and sign-only strings return `false`.
+- Values like `"4."` and `"-.9"` are accepted because they contain digits in a valid decimal form.
+- Both lowercase `e` and uppercase `E` are handled.
 
 ## Complexity
 

@@ -1,26 +1,24 @@
-# Explanation
-
-Problem: [Partition Array for Maximum Sum](https://leetcode.com/problems/partition-array-for-maximum-sum/)
+# Partition Array for Maximum Sum
 
 ## Idea
 
-- Use dynamic programming where `dp[i]` is the best score for the first `i` elements.
-- For each endpoint `i`, try every last block length `j` from `1` to `k`, as long as the block fits.
-- Maintain the maximum value inside that candidate last block while expanding it backward.
-- Update `dp[i]` with `dp[i - j] + max * j`.
+- `dp[i]` stores the best transformed sum for the first `i` elements.
+- For each ending position `i`, the code tries every last block length `j` from `1` to `k`.
+- While expanding that last block backward, it maintains the block maximum.
+- The candidate value is `dp[i - j] + max * j`.
 
 ## Why It Works
 
-- In an optimal partition of the first `i` elements, the final block has some length between `1` and `k`.
-- Once that final block length is chosen, its contribution is its maximum value multiplied by its length.
-- Everything before that block is independent and optimally represented by `dp[i - j]`.
-- Trying all legal final block lengths therefore considers the optimal partition.
+- In any optimal partition of the first `i` elements, the last block has some valid length `j <= k`.
+- That last block contributes its maximum value repeated `j` times.
+- The prefix before it is independent and optimally represented by `dp[i - j]`.
+- Trying all valid last block lengths therefore includes the optimal partition.
 
 ## Edge Cases
 
 - `k = 1` leaves every element in its own block.
-- A one-element array returns that element.
-- Large values are stored in `int` because the problem guarantees the answer fits in 32 bits.
+- A one-element array fills `dp[1]` directly.
+- Large values fit because the problem guarantees the final answer fits in a 32-bit integer.
 
 ## Complexity
 

@@ -1,22 +1,26 @@
-# Explanation
+# Sort Characters By Frequency
 
-<!-- Replace this draft with your own explanation. -->
+## Idea
 
-Problem: [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+- The implementation counts characters in an ASCII-sized array.
+- It places each present character into a bucket indexed by its frequency.
+- It scans buckets from highest frequency down to lowest.
+- For each character in a bucket, it appends that character `freq` times.
 
-## Approach
+## Why It Works
 
-Write the core idea here.
+- Characters in higher-frequency buckets must appear earlier in the output.
+- Scanning frequencies descending guarantees the required ordering by frequency.
+- All occurrences of the same character are appended together.
+- Ties can appear in any order, which the problem allows.
 
-## Correctness
+## Edge Cases
 
-Explain why the approach produces the correct result.
+- A one-character string returns itself.
+- Uppercase and lowercase letters are counted separately by character code.
+- Digits are handled by the same ASCII count array.
 
 ## Complexity
 
-- Time: O(?)
-- Space: O(?)
-
-## Notes
-
-Add pitfalls, alternatives, or lessons learned here.
+- Time: $O(n + A)$, where `A = 128` for the count scan.
+- Space: $O(n + A)$ for buckets and the output builder.

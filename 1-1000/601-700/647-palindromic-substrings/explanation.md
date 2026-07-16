@@ -1,22 +1,26 @@
-# Explanation
+# Palindromic Substrings
 
-<!-- Replace this draft with your own explanation. -->
+## Idea
 
-Problem: [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
+- The solution treats every index as the center of odd-length palindromes.
+- It also treats every gap between indices as the center of even-length palindromes.
+- `extendPalindromes` expands outward while both sides are in range and equal.
+- Each successful expansion counts one palindrome.
 
-## Approach
+## Why It Works
 
-Write the core idea here.
+- Every palindrome has exactly one center, either a character or a gap.
+- Expanding from that center enumerates palindromes in increasing radius.
+- The first mismatch or boundary ends all larger palindromes for that center.
+- Summing over all centers counts every palindromic substring once.
 
-## Correctness
+## Edge Cases
 
-Explain why the approach produces the correct result.
+- Single characters are counted by odd centers.
+- Repeated characters like `"aaa"` produce multiple expansions from nearby centers.
+- Even-length palindromes are covered by starting at `(i, i + 1)`.
 
 ## Complexity
 
-- Time: O(?)
-- Space: O(?)
-
-## Notes
-
-Add pitfalls, alternatives, or lessons learned here.
+- Time: $O(n^2)$.
+- Space: $O(1)$.
