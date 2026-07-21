@@ -1,0 +1,33 @@
+class Solution {
+  public List<List<Integer>> getAncestors(int n, int[][] edges) {
+    List<List<Integer>> ans = new ArrayList<>();
+    List<Integer>[] graph = new List[n];
+
+    for (int i = 0; i < n; ++i) {
+      ans.add(new ArrayList<>());
+      graph[i] = new ArrayList<>();
+    }
+
+    for (int[] edge : edges) {
+      int u = edge[0];
+      int v = edge[1];
+      graph[u].add(v);
+    }
+
+    for (int i = 0; i < n; ++i)
+      dfs(graph, i, i, new boolean[n], ans);
+
+    return ans;
+  }
+
+  private void dfs(List<Integer>[] graph, int u, int ancestor, boolean[] vis,
+                   List<List<Integer>> ans) {
+    vis[u] = true;
+    for (int v : graph[u]) {
+      if (vis[v])
+        continue;
+      ans.get(v).add(ancestor);
+      dfs(graph, v, ancestor, vis, ans);
+    }
+  }
+}
