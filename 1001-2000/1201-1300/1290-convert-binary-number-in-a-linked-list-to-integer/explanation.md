@@ -1,15 +1,15 @@
 ## Idea
 
-- Walk from the most significant bit to the least significant bit. Shift the accumulated value left once and OR in the next node’s bit.
+- Shift the accumulator and add each bit from most significant to least significant.
 
 ## Why It Works
 
-- After each node, the accumulator equals the binary prefix read so far. Appending a binary digit multiplies that prefix by two and adds the digit, exactly what the shift and OR perform.
+- Appending a bit is exactly 2v+b.
 
 ## Edge Cases
 
-- Leading zeros and a single zero node are handled naturally. At most 30 bits fit in a signed int.
+- Boundary cases are handled directly by the scan or recurrence.
 
 ## Complexity
 
-- O(n) time and O(1) auxiliary space.
+- O(n) time, O(1) space.
