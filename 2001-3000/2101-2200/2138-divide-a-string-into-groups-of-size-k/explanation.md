@@ -17,4 +17,3 @@ O(n + k) time and output space; O(k) temporary space for a chunk.
 ## Notes
 
 The result contains ceil(n/k) groups.
-

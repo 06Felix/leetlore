@@ -17,4 +17,3 @@ O(n) time and O(1) auxiliary space.
 ## Notes
 
 Under k ≤ 10⁹, the loop stops before its int place-value arithmetic overflows.
-

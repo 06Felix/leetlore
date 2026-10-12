@@ -17,4 +17,3 @@ O(n log n) time and O(log n) sorting stack.
 ## Notes
 
 Sorting modifies the input array.
-

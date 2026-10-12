@@ -17,4 +17,3 @@ O(n) time over four scans and O(n) space for the character array.
 ## Notes
 
 The edits maximizing different prefixes need not be the same: only one prefix must attain the returned maximum.
-

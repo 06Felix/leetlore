@@ -17,4 +17,3 @@ O(n + 26²) time and O(n + 26) space, including the character array.
 ## Notes
 
 Only characters still present contribute to the frequency comparison.
-

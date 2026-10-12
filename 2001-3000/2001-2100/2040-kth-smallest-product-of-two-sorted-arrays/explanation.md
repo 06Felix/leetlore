@@ -17,4 +17,3 @@ O((n+m) log(10¹⁰+1)) time and O(n+m) auxiliary space.
 ## Notes
 
 Correctness risk: negCount is initialized from int multiplications and addition before assignment to long. With 50,000 negative values in one array and 50,000 positive values in the other, the count 2,500,000,000 overflows int and can select the wrong block. The stored implementation is left unchanged; the argument above assumes this count does not overflow.
-

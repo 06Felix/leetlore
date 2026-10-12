@@ -17,4 +17,3 @@ For Q tested candidates and maximum candidate length L, time is O(Q(n+L)). Space
 ## Notes
 
 The greedy checker advances through s and counts complete copies without reusing positions.
-

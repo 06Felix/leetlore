@@ -17,4 +17,3 @@ O(n) time, O(1) auxiliary space, and O(n) worst-case output space.
 ## Notes
 
 The output is sorted because i advances monotonically.
-

@@ -17,4 +17,3 @@ For P candidates with at most D base-k digits, palindrome generation and string 
 ## Notes
 
 This stored solution is Python. Arbitrary-precision conversion costs are additional to the digit-scan bound.
-
