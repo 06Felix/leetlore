@@ -2,29 +2,20 @@
 
 ## Idea
 
-- Find the point inside the rectangle that is closest to the circle center.
-- Clamp the circle center's `x` coordinate into `[x1, x2]`.
-- Clamp the circle center's `y` coordinate into `[y1, y2]`.
-- If that closest point is within the circle radius, the two shapes overlap.
+- Clamp the circle center’s x and y independently into the rectangle’s coordinate ranges. Compare the squared distance to this closest point with radius squared.
 
 ## Why It Works
 
-- For an axis-aligned rectangle, the closest rectangle point to any outside point is found by clamping each coordinate independently.
-- If the circle center is already inside the rectangle on one axis, that coordinate stays unchanged.
-- The circle overlaps the rectangle exactly when the squared distance to this closest point is at most `radius * radius`.
+- Independent coordinate clamping minimizes squared distance to an axis-aligned rectangle. A shared point exists exactly when that minimum distance is no greater than the circle radius.
 
 ## Edge Cases
 
-- If the circle center is inside the rectangle, the closest point is the center itself, so the answer is `true`.
-- Touching at one point still counts as overlap, so the comparison uses `<=`.
-- Corners and edges are handled by the same clamping logic.
+- A center inside the rectangle gives distance zero. Equality accepts tangency at an edge or corner.
 
 ## Complexity
 
-- Time: `O(1)`
-- Space: `O(1)`
+- O(1) time and O(1) auxiliary space.
 
-## Tags
+## Notes
 
-- Geometry
-- Math
+- The largest squared-distance sum under the coordinate bounds is 800000000, within int range. No square root is needed.
